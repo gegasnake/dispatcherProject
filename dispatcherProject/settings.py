@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     # apps
     'user',
+    'dispatcher_app',
 
     # dependencies
     'rest_framework',
