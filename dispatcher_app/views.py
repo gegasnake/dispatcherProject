@@ -93,8 +93,11 @@ class ProfitView(APIView):
     permission_classes = [permissions.IsAdminUser]
 
     def get(self, request):
-        total_profit = Order.objects.filter(status='completed').aggregate(Sum('price'))['price__sum']
-        return Response({'total_profit': total_profit})
+        total_profit = Order.objects.filter(status='completed').aggregate(
+            total_profit=Sum('total_price') - Sum('owner_price')
+        )['total_profit']
+
+        return Response({'total_profit': total_profit if total_profit else 0})
 
 
 class DispatcherStatsView(APIView):
